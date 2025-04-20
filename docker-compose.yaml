@@ -1,0 +1,36 @@
+services:
+  vault:
+    image: hashicorp/vault:latest
+    container_name: vault
+    ports:
+      - "8200:8200"
+    volumes:
+      - ./vault/config:/vault/config:z
+      - ./vault/data:/vault/file
+      - ./vault/audit:/vault/audit
+      - ./vault/cert:/vault/cert:z
+    cap_add:
+      - IPC_LOCK
+    command: server -config=/vault/config/vault.hcl
+    environment:
+      VAULT_ADDR: "http://127.0.0.1:8200"
+    restart: unless-stopped
+
+  kes:
+    image: minio/kes:latest
+    container_name: kes
+    ports:
+      - "7373:7373"
+    volumes:
+      - ./kes/config:/etc/kes/config
+    environment:
+      KES_SERVER: "http://0.0.0.0:7373"
+    command: 
+      - server
+      - --config=/etc/kes/config/config.yml
+    depends_on:
+      - vault
+
+volumes:
+  vault_data: {}
+  vault_audit: {}
