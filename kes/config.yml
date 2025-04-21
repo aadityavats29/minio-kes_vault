@@ -1,0 +1,17 @@
+address: 0.0.0.0:7373
+admin:
+  identity: disabled
+tls:
+  key: /etc/kes/tls/key.pem   # Path to the TLS private key
+  cert: /etc/kes/tls/certificate.pem  # Path to the TLS certificate
+  password: "Razor1911."             # An optional password to decrypt the TLS private key
+policy:
+  my-policy:
+    allow:
+      - /v1/key/create/*
+      - /v1/key/generate/*
+      - /v1/key/decrypt/*
+    identities: []
+keystore:
+  vault:
+    endpoint: https://127.0.0.1:8200

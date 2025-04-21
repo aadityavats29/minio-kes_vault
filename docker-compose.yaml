@@ -4,14 +4,16 @@ services:
     container_name: vault
     ports:
       - "8200:8200"
+      - "8201:8201"
     volumes:
-      - ./vault/config:/vault/config:z
-      - ./vault/data:/vault/file
-      - ./vault/audit:/vault/audit
-      - ./vault/cert:/vault/cert:z
+      - ./vault:/etc/vault
+      - ./tls:/etc/vault/tls
     cap_add:
       - IPC_LOCK
-    command: server -config=/vault/config/vault.hcl
+    command: sh -c "vault server -config=/etc/vault/config.hcl && vault secrets enable -version=1 kv && vault policy write kes-policy /etc/vault/kes-policy.hcl"
+    #command: sh -c "vault server -config=/etc/vault/config.hcl"
+    #command: sh -c "vault secrets enable -version=1 kv"
+    #command: sh -c "vault policy write kes-policy /etc/vault/kes-policy.hcl"
     restart: unless-stopped
 
   kes:
@@ -20,10 +22,9 @@ services:
     ports:
       - "7373:7373"
     volumes:
-      - ./kes/config:/etc/kes/config
-    command: 
-      - server
-      - --config=/etc/kes/config/config.yml
+      - ./kes:/etc/kes
+      - ./tls:/etc/kes/tls
+    command: server --config=/etc/kes/config.yml
     depends_on:
       - vault
 
