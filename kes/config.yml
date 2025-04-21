@@ -2,8 +2,8 @@ address: 0.0.0.0:7373
 admin:
   identity: disabled
 tls:
-  key: /etc/kes/tls/key.pem   # Path to the TLS private key
-  cert: /etc/kes/tls/certificate.pem  # Path to the TLS certificate
+  key: /etc/vault/tls/key.pem   # Path to the TLS private key
+  cert: /etc/vault/tls/certificate.pem  # Path to the TLS certificate
   password: "Razor1911."             # An optional password to decrypt the TLS private key
 policy:
   my-policy:
