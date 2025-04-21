@@ -1,3 +1,7 @@
 kes/config/kes.crt
 kes/config/kes.key
 key.txt
+
+certificate.pem
+csr.csr
+key.pem
