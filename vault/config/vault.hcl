@@ -1,5 +1,5 @@
 ui = true
-cluster_addr  = "http://127.0.0.1:8201"
+cluster_addr  = "http://127.0.0.1:8200"
 api_addr      = "http://127.0.0.1:8200"
 disable_mlock = true
 

@@ -12,8 +12,6 @@ services:
     cap_add:
       - IPC_LOCK
     command: server -config=/vault/config/vault.hcl
-    environment:
-      VAULT_ADDR: "http://127.0.0.1:8200"
     restart: unless-stopped
 
   kes:
@@ -23,8 +21,6 @@ services:
       - "7373:7373"
     volumes:
       - ./kes/config:/etc/kes/config
-    environment:
-      KES_SERVER: "http://0.0.0.0:7373"
     command: 
       - server
       - --config=/etc/kes/config/config.yml
