@@ -2,8 +2,8 @@ services:
   vault:
     image: hashicorp/vault:latest
     container_name: vault
-    ports:
-      - "8200:8200"
+    user: root
+    network_mode: host
     volumes:
       - ./vault/config:/vault/config:z
       - ./vault/data:/vault/file
